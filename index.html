@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm Tra Tư Tưởng Hồ Chí Minh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --gold: #d4a017;
+    --gold-light: #f5d76e;
+    --cream: #fdf6e3;
+    --dark: #1a0a00;
+    --mid: #3d1f00;
+    --text: #2c1a00;
+    --bg: #fff9f0;
+    --card: #fffdf7;
+    --border: rgba(192,57,43,0.15);
+    --shadow: 0 4px 32px rgba(192,57,43,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 10% 0%, rgba(192,57,43,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(212,160,23,0.10) 0%, transparent 60%);
+  }
+
+  /* STAR PATTERN */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='30,4 34,18 48,18 37,27 41,41 30,32 19,41 23,27 12,18 26,18' fill='%23c0392b' fill-opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .star-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .star {
+    color: var(--gold);
+    font-size: 22px;
+    animation: starPulse 2s ease-in-out infinite;
+  }
+  .star:nth-child(2) { animation-delay: 0.2s; }
+  .star:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes starPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.15); }
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 900;
+    color: var(--red);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+
+  .header p {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--mid);
+    font-weight: 300;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .divider span { color: var(--gold); font-size: 18px; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: rgba(192,57,43,0.10);
+    border-radius: 99px;
+    height: 6px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--mid);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.45s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-num {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+  }
+
+  .question-text {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    color: var(--dark);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    cursor: pointer;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    text-align: left;
+    transition: all 0.2s;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--red);
+    background: #fff5f5;
+    transform: translateX(3px);
+  }
+
+  .option-label {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(192,57,43,0.10);
+    color: var(--red);
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .option-btn.selected {
+    border-color: var(--red);
+    background: #fff0ef;
+  }
+  .option-btn.selected .option-label {
+    background: var(--red);
+    color: #fff;
+  }
+
+  .option-btn.correct {
+    border-color: #27ae60;
+    background: #f0fff5;
+  }
+  .option-btn.correct .option-label {
+    background: #27ae60;
+    color: #fff;
+  }
+
+  .option-btn.wrong {
+    border-color: #e74c3c;
+    background: #fff5f5;
+    opacity: 0.7;
+  }
+  .option-btn.wrong .option-label {
+    background: #e74c3c;
+    color: #fff;
+  }
+
+  .option-btn:disabled { cursor: not-allowed; }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+  .btn-next {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.3);
+  }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192,57,43,0.4); }
+  .btn-next:active { transform: translateY(0); }
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* RESULT */
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 36px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .result-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .result-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .result-label {
+    font-size: 16px;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .result-grade {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 99px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }
+  .grade-excellent { background: #d4edda; color: #155724; }
+  .grade-good      { background: #cce5ff; color: #004085; }
+  .grade-pass      { background: #fff3cd; color: #856404; }
+  .grade-fail      { background: #f8d7da; color: #721c24; }
+
+  .result-detail {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .done-msg {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 14px;
+    padding: 32px 28px;
+    text-align: center;
+    animation: fadeUp 0.5s ease both;
+  }
+  .done-msg h2 { font-family:'Playfair Display',serif; color: var(--red); margin-bottom:12px; }
+  .done-msg p  { color: var(--mid); line-height:1.7; }
+
+  /* NAME SCREEN */
+  .name-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.5s ease both;
+  }
+  .name-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .name-card p { color: var(--mid); margin-bottom: 24px; font-size: 14px; }
+
+  .name-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .name-input:focus { border-color: var(--red); }
+
+  .btn-start {
+    width: 100%;
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.3);
+    letter-spacing: 0.5px;
+  }
+  .btn-start:hover { transform: translateY(-2px); }
+  .btn-start:active { transform: none; }
+
+  .warning-txt { color: #e74c3c; font-size: 13px; margin-top: 8px; min-height: 20px; }
+
+  /* ANSWER KEY in result */
+  .answer-review {
+    margin-top: 32px;
+    text-align: left;
+  }
+  .answer-review h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+  .review-item {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    border-left: 3px solid transparent;
+  }
+  .review-item.ok  { background: #f0fff5; border-color: #27ae60; }
+  .review-item.bad { background: #fff5f5; border-color: #e74c3c; }
+  .review-item strong { display: block; font-weight: 600; color: var(--dark); margin-bottom: 3px; }
+  .review-tick { font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="star-row">
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+    </div>
+    <h1>Kiểm Tra Tư Tưởng Hồ Chí Minh<br>& Đường Lối Đảng</h1>
+    <p>15 câu hỏi trắc nghiệm · Mỗi người chỉ được làm 1 lần</p>
+    <div class="divider"><span>❧</span></div>
+  </div>
+
+  <div id="app"></div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "Theo tư tưởng Hồ Chí Minh, khi hoạch định chủ trương, đường lối của Đảng cần đặt điều gì lên hàng đầu?",
+    opts: ["Lợi ích của từng giai cấp","Lợi ích dân tộc và đất nước","Lợi ích quốc tế","Lợi ích kinh tế"],
+    ans: 1
+  },
+  {
+    q: "Trong giai đoạn hiện nay, sức mạnh của khối đại đoàn kết toàn dân tộc cần được phát huy để:",
+    opts: ["Chiến thắng giặc ngoại xâm","Mở rộng lãnh thổ","Chiến thắng nghèo nàn và lạc hậu","Tăng dân số"],
+    ans: 2
+  },
+  {
+    q: "Nghị quyết số 07-NQ/TW về đại đoàn kết dân tộc được Bộ Chính trị Trung ương Đảng khóa VII ban hành vào năm nào?",
+    opts: ["1986","1991","1993","1996"],
+    ans: 2
+  },
+  {
+    q: "Đại hội VIII của Đảng đã đặt vấn đề đại đoàn kết dân tộc ở tầm cao mới nhằm:",
+    opts: ["Phát triển du lịch","Phát huy sức mạnh toàn dân trong thời kỳ công nghiệp hóa, hiện đại hóa","Tăng cường quốc phòng","Mở rộng giao lưu văn hóa"],
+    ans: 1
+  },
+  {
+    q: "Đại hội XII khẳng định đại đoàn kết toàn dân tộc là:",
+    opts: ["Một phong trào xã hội","Một chính sách tạm thời","Đường lối chiến lược của cách mạng Việt Nam","Nhiệm vụ của Mặt trận Tổ quốc"],
+    ans: 2
+  },
+  {
+    q: "Nền tảng của khối đại đoàn kết toàn dân tộc hiện nay là:",
+    opts: ["Liên minh công nhân – nông dân – trí thức dưới sự lãnh đạo của Đảng","Liên minh công nhân – doanh nhân","Liên minh nông dân – trí thức","Liên minh các dân tộc thiểu số"],
+    ans: 0
+  },
+  {
+    q: "Mục tiêu xây dựng đất nước được nêu trong Đại hội XII là:",
+    opts: ["Giàu mạnh về quân sự","Việt Nam hòa bình, độc lập, thống nhất, toàn vẹn lãnh thổ","Trở thành cường quốc thế giới","Tăng trưởng kinh tế bằng mọi giá"],
+    ans: 1
+  },
+  {
+    q: "Tinh thần nào cần được đề cao để tập hợp, đoàn kết mọi người Việt Nam ở trong và ngoài nước?",
+    opts: ["Cạnh tranh và hội nhập","Tự do và bình đẳng","Dân tộc, yêu nước, nhân nghĩa, khoan dung","Độc lập và sáng tạo"],
+    ans: 2
+  },
+  {
+    q: "Theo Đại hội XIII, cần phát huy sức mạnh của:",
+    opts: ["Kinh tế tư nhân","Công nghệ hiện đại","Đại đoàn kết toàn dân tộc và dân chủ xã hội chủ nghĩa","Quốc phòng toàn dân"],
+    ans: 2
+  },
+  {
+    q: "Từ tư tưởng \u201cmuốn là bạn\u201d được nêu tại Đại hội nào của Đảng?",
+    opts: ["Đại hội VI","Đại hội VII","Đại hội VIII","Đại hội IX"],
+    ans: 1
+  },
+  {
+    q: "Tư tưởng \u201csẵn sàng là bạn\u201d được nêu tại:",
+    opts: ["Đại hội VII","Đại hội VIII","Đại hội IX","Đại hội X"],
+    ans: 1
+  },
+  {
+    q: "Quan điểm \u201clà bạn và đối tác tin cậy\u201d được xác định tại:",
+    opts: ["Đại hội VII","Đại hội VIII","Đại hội IX","Đại hội XI"],
+    ans: 2
+  },
+  {
+    q: "Theo Đại hội XII, quan hệ đối ngoại và hội nhập quốc tế của Việt Nam:",
+    opts: ["Thu hẹp để bảo vệ chủ quyền","Ngày càng sâu rộng, có hiệu quả","Chỉ tập trung vào kinh tế","Chỉ tập trung vào khu vực ASEAN"],
+    ans: 1
+  },
+  {
+    q: "Đại hội XIII đánh giá vị thế và uy tín quốc tế của Việt Nam như thế nào?",
+    opts: ["Không thay đổi","Giảm sút do cạnh tranh quốc tế","Ngày càng được nâng cao","Chưa được quốc tế công nhận"],
+    ans: 2
+  },
+  {
+    q: "Một trong những kết quả của việc mở rộng quan hệ đối ngoại và hội nhập quốc tế là:",
+    opts: ["Giảm giao lưu với các nước","Thu hẹp cơ hội phát triển","Tranh thủ được sự hợp tác, giúp đỡ của cộng đồng quốc tế","Phụ thuộc hoàn toàn vào nước ngoài"],
+    ans: 2
+  }
+];
+
+const LABELS = ['A','B','C','D'];
+const STORAGE_KEY = 'hcm_quiz_done';
+
+let state = {
+  screen: 'name',   // 'name' | 'quiz' | 'result' | 'done'
+  name: '',
+  current: 0,
+  selected: Array(15).fill(null),
+  answered: false
+};
+
+function getStorage() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
+}
+function setStorage(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+}
+
+function render() {
+  const app = document.getElementById('app');
+  const saved = getStorage();
+
+  if (state.screen === 'name') {
+    if (saved) { state.screen = 'done'; render(); return; }
+    app.innerHTML = `
+      <div class="name-card">
+        <h2>Nhập tên của bạn</h2>
+        <p>Vui lòng nhập họ tên đầy đủ trước khi bắt đầu làm bài.<br>Mỗi thiết bị chỉ được làm 1 lần.</p>
+        <input class="name-input" id="nameInput" type="text" placeholder="Họ và tên..." maxlength="80" autocomplete="off" />
+        <div class="warning-txt" id="nameWarn"></div>
+        <button class="btn-start" onclick="startQuiz()">Bắt Đầu Làm Bài →</button>
+      </div>`;
+    document.getElementById('nameInput').addEventListener('keydown', e => { if(e.key==='Enter') startQuiz(); });
+  }
+
+  else if (state.screen === 'quiz') {
+    const q = QUESTIONS[state.current];
+    const pct = Math.round((state.current / 15) * 100);
+    const sel = state.selected[state.current];
+
+    app.innerHTML = `
+      <div class="progress-label">
+        <span>Câu ${state.current + 1} / 15</span>
+        <span>${pct}% hoàn thành</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="question-card">
+        <span class="question-num">Câu ${state.current + 1}</span>
+        <p class="question-text">${q.q}</p>
+        <div class="options">
+          ${q.opts.map((opt, i) => {
+            let cls = 'option-btn';
+            if (state.answered) {
+              if (i === q.ans) cls += ' correct';
+              else if (i === sel && sel !== q.ans) cls += ' wrong';
+            } else if (i === sel) cls += ' selected';
+            return `<button class="${cls}" ${state.answered ? 'disabled' : ''} onclick="selectOpt(${i})">
+              <span class="option-label">${LABELS[i]}</span>
+              <span>${opt}</span>
+            </button>`;
+          }).join('')}
+        </div>
+        <div class="nav">
+          <button class="btn-next" onclick="nextQ()" ${sel === null ? 'disabled' : ''}>
+            ${state.current < 14 ? 'Câu tiếp theo →' : 'Nộp bài ✓'}
+          </button>
+        </div>
+      </div>`;
+  }
+
+  else if (state.screen === 'result') {
+    const correct = state.selected.filter((s,i) => s === QUESTIONS[i].ans).length;
+    const pct = Math.round((correct/15)*100);
+    let grade, gradeClass, icon;
+    if (pct >= 87) { grade = 'Xuất sắc'; gradeClass = 'grade-excellent'; icon = '🏅'; }
+    else if (pct >= 67) { grade = 'Khá'; gradeClass = 'grade-good'; icon = '👍'; }
+    else if (pct >= 50) { grade = 'Đạt'; gradeClass = 'grade-pass'; icon = '✅'; }
+    else { grade = 'Chưa đạt'; gradeClass = 'grade-fail'; icon = '📚'; }
+
+    const reviewItems = QUESTIONS.map((q, i) => {
+      const ok = state.selected[i] === q.ans;
+      return `<div class="review-item ${ok ? 'ok' : 'bad'}">
+        <strong><span class="review-tick">${ok ? '✅' : '❌'}</span> Câu ${i+1}: ${q.q}</strong>
+        ${!ok ? `<span style="color:#e74c3c">Bạn chọn: ${state.selected[i] !== null ? LABELS[state.selected[i]] + '. ' + q.opts[state.selected[i]] : '(chưa chọn)'}</span><br>` : ''}
+        <span style="color:#27ae60">Đáp án đúng: ${LABELS[q.ans]}. ${q.opts[q.ans]}</span>
+      </div>`;
+    }).join('');
+
+    app.innerHTML = `
+      <div class="result-card">
+        <span class="result-icon">${icon}</span>
+        <div class="result-score">${correct}/15</div>
+        <div class="result-label">Số câu đúng của <strong>${state.name}</strong></div>
+        <span class="result-grade ${gradeClass}">${grade} — ${pct}%</span>
+        <p class="result-detail">Bạn đã hoàn thành bài kiểm tra.<br>Kết quả đã được lưu lại.</p>
+        <div class="answer-review">
+          <h3>Chi tiết đáp án</h3>
+          ${reviewItems}
+        </div>
+      </div>`;
+  }
+
+  else if (state.screen === 'done') {
+    const d = getStorage();
+    app.innerHTML = `
+      <div class="done-msg">
+        <h2>⚠️ Bạn đã hoàn thành bài kiểm tra</h2>
+        <p>Thiết bị này đã được dùng để làm bài.<br>
+        ${d ? `<strong>${d.name}</strong> đã làm bài và đạt <strong>${d.correct}/15</strong> câu đúng.` : ''}<br><br>
+        Mỗi thiết bị chỉ được làm bài <strong>1 lần duy nhất</strong>.</p>
+      </div>`;
+  }
+}
+
+function startQuiz() {
+  const val = document.getElementById('nameInput').value.trim();
+  if (!val) { document.getElementById('nameWarn').textContent = 'Vui lòng nhập họ tên của bạn.'; return; }
+  state.name = val;
+  state.screen = 'quiz';
+  state.answered = false;
+  render();
+}
+
+function selectOpt(i) {
+  if (state.answered) return;
+  state.selected[state.current] = i;
+  state.answered = true;
+  render();
+}
+
+function nextQ() {
+  if (state.selected[state.current] === null) return;
+  if (state.current < 14) {
+    state.current++;
+    state.answered = state.selected[state.current] !== null;
+    render();
+  } else {
+    // submit
+    const correct = state.selected.filter((s,i) => s === QUESTIONS[i].ans).length;
+    setStorage({ name: state.name, correct, total: 15, date: new Date().toISOString() });
+    state.screen = 'result';
+    render();
+  }
+}
+
+// init
+render();
+</script>
+</body>
+</html>
